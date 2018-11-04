@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="phonebook">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='ru.ref.phonebook' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/phonebook/greet" class="ru.ref.server.GreetingServiceImpl" />
+
+</module>
