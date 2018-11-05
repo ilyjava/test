@@ -13,6 +13,8 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import java.util.ArrayList;
+
 
 public class Phonebook implements EntryPoint {
 
@@ -77,15 +79,15 @@ public class Phonebook implements EntryPoint {
 
         RootPanel.get().add(vp);
 
-        service.getContacts(new AsyncCallback<ContactList>() {
+        service.getContacts(new AsyncCallback<ArrayList<Contact>>() {
             @Override
             public void onFailure(Throwable throwable) {
 
             }
 
             @Override
-            public void onSuccess(ContactList contactList) {
-                cellTableOfContacts.setRowData(0,  contactList.getContactList());
+            public void onSuccess(ArrayList<Contact> contacts) {
+                cellTableOfContacts.setRowData(0,  contacts);
             }
         });
     }

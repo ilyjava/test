@@ -1,6 +1,8 @@
 package ru.ref.client;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
     private int id;
     private String name;
     private String address;
@@ -11,6 +13,9 @@ public class Contact {
         this.name = name;
         this.address = address;
         this.phone = phone;
+    }
+
+    public Contact() {
     }
 
     public int getId() {
@@ -44,4 +49,6 @@ public class Contact {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }

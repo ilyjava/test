@@ -4,6 +4,8 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+
+    <!-- Servlets -->
     <servlet>
         <servlet-name>ru.ref.phonebook Service</servlet-name>
         <servlet-class>ru.ref.server.ServiceImpl</servlet-class>
@@ -12,9 +14,6 @@
         <servlet-name>ru.ref.phonebook Service</servlet-name>
         <url-pattern>/phonebook/service</url-pattern>
     </servlet-mapping>
-
-    <!-- Servlets -->
-
 
   <!-- Default page to serve -->
   <welcome-file-list>

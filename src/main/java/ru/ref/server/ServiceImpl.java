@@ -2,10 +2,11 @@ package ru.ref.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import ru.ref.client.Contact;
-import ru.ref.client.ContactList;
 import ru.ref.client.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ServiceImpl extends RemoteServiceServlet implements Service {
@@ -23,9 +24,9 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
     private ResultSet rs;
 
     @Override
-    public ContactList getContacts() {
-        ContactList contactList = new ContactList();
+    public ArrayList<Contact> getContacts() {
 
+        ArrayList<Contact> contactList = new ArrayList();
         query = "select * from contacts";
 
         try {
@@ -42,7 +43,7 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
             }
 
             while (rs.next()) {
-                contactList.getContactList().add(new Contact(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4)));
+                contactList.add(new Contact(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4)));
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
