@@ -1,10 +1,12 @@
 package ru.ref.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import ru.ref.client.ContactTable;
+import ru.ref.client.Contact;
+import ru.ref.client.ContactList;
 import ru.ref.client.Service;
 
 import java.sql.*;
+
 
 public class ServiceImpl extends RemoteServiceServlet implements Service {
 
@@ -20,16 +22,9 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
     private Connection conn = null;
     private ResultSet rs;
 
-    private int i = 0;
-
-    private int[] idArray;
-    private String[] nameArray;
-    private String[] addressArray;
-    private String[] phoneArray;
-
     @Override
-    public ContactTable getContacts() {
-        ContactTable contactTable = new ContactTable();
+    public ContactList getContacts() {
+        ContactList contactList = new ContactList();
 
         query = "select * from contacts";
 
@@ -40,17 +35,6 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
 
             rs = ps.executeQuery();
 
-            int rowCount = 0;
-
-            while (rs.next()) {
-                rowCount++;
-            }
-
-            idArray = new int[rowCount];
-            nameArray = new String[rowCount];
-            addressArray = new String[rowCount];
-            phoneArray = new String[rowCount];
-
             try {
                 rs.beforeFirst();
             } catch (SQLException e) {
@@ -58,20 +42,8 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
             }
 
             while (rs.next()) {
-                idArray[i] = rs.getInt(1);
-                nameArray[i] = rs.getString(2);
-                addressArray[i] = rs.getString(3);
-                phoneArray[i] = rs.getString(4);
-
-                i++;
+                contactList.getContactList().add(new Contact(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4)));
             }
-
-            contactTable.setIdArray(idArray);
-            contactTable.setNameArray(nameArray);
-            contactTable.setAddressArray(addressArray);
-            contactTable.setPhoneArray(phoneArray);
-
-            i = 0;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException se) {
@@ -92,6 +64,6 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
                 }
             }
         }
-        return contactTable;
+        return contactList;
     }
 }
