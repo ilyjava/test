@@ -2,6 +2,8 @@
 <module rename-to="phonebook">
   <!-- Inherit our applications main module.                      -->
   <inherits name='ru.ref.phonebook' />
+    <inherits name="com.google.gwt.user.UI"/>
+  <inherits name="com.google.gwt.user.UI"/>
 
   <!-- Specify the path to any remote services.                   -->
   <servlet path="/phonebook/greet" class="ru.ref.server.GreetingServiceImpl" />

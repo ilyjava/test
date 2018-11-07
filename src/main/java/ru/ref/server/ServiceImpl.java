@@ -1,12 +1,13 @@
 package ru.ref.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import ru.ref.client.Contact;
 import ru.ref.client.Service;
+import ru.ref.shared.Contact;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 
 public class ServiceImpl extends RemoteServiceServlet implements Service {
@@ -23,10 +24,11 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
     private Connection conn = null;
     private ResultSet rs;
 
+
+    ArrayList<Contact> contactList = new ArrayList();
     @Override
     public ArrayList<Contact> getContacts() {
 
-        ArrayList<Contact> contactList = new ArrayList();
         query = "select * from contacts";
 
         try {
@@ -67,4 +69,45 @@ public class ServiceImpl extends RemoteServiceServlet implements Service {
         }
         return contactList;
     }
+
+    @Override
+    public void updateFish(int id, String name, String address, String phone) {
+
+            query = "update contacts set contact_name=?,addr=?,phone=? where id=?";
+
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url , user , pass);
+            ps = conn.prepareStatement(query);
+
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ps.setString(3, phone);
+            ps.setInt(4, id);
+            ps.executeUpdate();
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException se){
+            se.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (Exception e) {
+
+                }
+            }
+
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+
+    }
 }
+

@@ -25,6 +25,8 @@
         <setting name="gwtSdkType" value="maven" />
         <setting name="webFacet" value="Web" />
         <packaging>
+          <module name="phonebook" enabled="false" />
+          <module name="ru.ref.client.phonebook" enabled="false" />
           <module name="ru.ref.phonebookJUnit" enabled="false" />
         </packaging>
       </configuration>

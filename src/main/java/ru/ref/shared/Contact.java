@@ -1,4 +1,4 @@
-package ru.ref.client;
+package ru.ref.shared;
 
 import java.io.Serializable;
 
